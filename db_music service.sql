@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS GenreSinger (
 CREATE TABLE IF NOT EXISTS Album (
         id SERIAL PRIMARY KEY,
         album VARCHAR(80) NOT NULL,
-        yearrelease INTEGER NOT NULL  
+        yearrelease INTEGER NOT NULL CONSTRAINT yearrelease_limit check (yearrelease >= 1991)   
 );
 
 -- Создаем таблицу связывающую тавлицы Альбомы и Исполнители
@@ -42,15 +42,15 @@ CREATE TABLE IF NOT EXISTS Track (
         id SERIAL PRIMARY KEY,
         album_id INTEGER REFERENCES Album(id),    
         track VARCHAR(80) NOT NULL,
-        time NUMERIC(3,2) NOT NULL   
+        time INTEGER NOT NULL CONSTRAINT time_limit check (time <= 1000)    
 );
 
 -- Создаем таблицу Сборники
 
 CREATE TABLE IF NOT EXISTS Collection (
        id SERIAL PRIMARY KEY,
-       name VARCHAR(20) NOT null,
-       yearrelease INTEGER NOT NULL
+       name VARCHAR(20) NOT NULL,
+       yearrelease INTEGER NOT NULL CONSTRAINT yearrelease_limit check (yearrelease >= 1991)
 );
 
 -- Создаем таблицу связывающую тавлицы Сборники и Треки
